@@ -42,7 +42,10 @@ export default function App(){
   }
 
   function handleSelectedFriend(friend){
-    setSelectedFriend(friend);
+    setSelectedFriend(cur=>(cur?.id===friend.id)?
+    null : friend);
+    //cur? -> cause currently selected doesnot everytime exist
+    setShowAddFriend(false);
   }
 
   return (
@@ -94,7 +97,8 @@ function FriendsList({friends, onSelection, selectedFriend}){
 }
 
 function Friend({friend, onSelection,selectedFriend}){
-  const isSelected = selectedFriend.id === friend.id;
+  const isSelected = selectedFriend?.id === friend.id;
+  // selected friend can be null in starts, that why we added optional chaining
 
   return <li className={isSelected ? "selected" : ""}>
     <img src={friend.image} alt={friend.name} />
@@ -149,22 +153,27 @@ function FormAddFriend({onShowAddFriend, onAddFriend}) {
 }
 
 function FormSplitBill({selectedFriend}) {
+  const [bill, setBill] = useState("");
+  const[paidByUser, setPaidByUser] = useState("");
+  const paidByFriend = bill ? bill-paidByUser : "";
+  const[whoIsPaying, setWhoIsPaying] = useState("User");
+  
   return (
     <form className="form-split-bill">
       <h2>Split a bill with {selectedFriend.name} </h2>
-      <label>👜 Bill value</label>
-      <input type="number"/>
-
+      <label >👜 Bill value</label>
+      <input type="number" value={bill} onChange={(e)=>setBill(Number(e.target.value) )}/>
       <label>👧 Your expenses </label>
-      <input type="number"/>
+      <input type="number" value={paidByUser} onChange={(e)=>setPaidByUser(Number(e.target.value)>bill ? paidByUser : Number(e.target.value) )}/>
 
       <label>👀{selectedFriend.name}'s expenses </label>
-      <input type="number"/>
+      <input type="number" disabled value={paidByFriend}/>
 
       <label>🤑 Who is paying the bill ?</label>
-      <select >
-        <option value="you">You</option>
-        <option value="friend1">Clark </option>
+      <select value={whoIsPaying} onChange={(e)=>setWhoIsPaying(e.target.value)
+      }>
+        <option value="user">You</option>
+        <option value="friend">{selectedFriend.name}</option>
       </select>
       <Button>split bill</Button>
     </form>
