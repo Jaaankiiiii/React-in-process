@@ -168,12 +168,12 @@ function FormSplitBill({selectedFriend, onSplitBill}) {
   
   function handleSubmit(e){
     if(!bill || !paidByUser) return;
-    onSplitBill(whoIsPaying =="user" ? paidByFriend : -paidByUser);
+    onSplitBill(whoIsPaying ==="user" ? paidByFriend : -paidByUser);
   }
 
 
   return (
-    <form className="form-split-bill" onSubmit>
+    <form className="form-split-bill" onSubmit={handleSubmit}>
       <h2>Split a bill with {selectedFriend.name} </h2>
       <label >👜 Bill value</label>
       <input type="number" value={bill} onChange={(e)=>setBill(Number(e.target.value) )}/>
