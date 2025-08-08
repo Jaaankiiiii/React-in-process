@@ -31,6 +31,3 @@ This project demonstrates:
 * **Conditional rendering** to show/hide content
 * **Reusable components** with props for dynamic data
 
----
-
-If you want, I can now create **Eat and Split’s inner README** in this exact style so all your project READMEs look perfectly consistent.
