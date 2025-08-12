@@ -50,7 +50,12 @@ export default function App(){
 
   function handleSplitBill(value){
     // console.log(value);
-    setFriends(friedns => friends.map((friend)=>friend.id===        selectedFriend.id ? {...friend, balance : friend.balance+value} : friend)
+    setFriends(friends =>
+      friends.map(friend =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
     );
 
     setSelectedFriend(null);
@@ -156,7 +161,7 @@ function FormAddFriend({onShowAddFriend, onAddFriend}) {
     <label>🌆 image URL</label>
     <input type="text"  value={image} onChange={(e)=>setImage(e.target.value)}/>
 
-    <Button onClick={handleSubmit}>Add</Button>
+    <Button>Add</Button>
   </form>
 }
 
@@ -164,13 +169,16 @@ function FormSplitBill({selectedFriend, onSplitBill}) {
   const [bill, setBill] = useState("");
   const[paidByUser, setPaidByUser] = useState("");
   const paidByFriend = bill ? bill-paidByUser : "";
-  const[whoIsPaying, setWhoIsPaying] = useState("User");
+  const[whoIsPaying, setWhoIsPaying] = useState("user");
   
   function handleSubmit(e){
-    if(!bill || !paidByUser) return;
+    e.preventDefault();
+    if (bill <= 0 || paidByUser < 0 || paidByUser > bill) return;
     onSplitBill(whoIsPaying ==="user" ? paidByFriend : -paidByUser);
   }
 
+
+ 
 
   return (
     <form className="form-split-bill" onSubmit={handleSubmit}>
@@ -178,7 +186,7 @@ function FormSplitBill({selectedFriend, onSplitBill}) {
       <label >👜 Bill value</label>
       <input type="number" value={bill} onChange={(e)=>setBill(Number(e.target.value) )}/>
       <label>👧 Your expenses </label>
-      <input type="number" value={paidByUser} onChange={(e)=>setPaidByUser(Number(e.target.value)>bill ? paidByUser : Number(e.target.value) )}/>
+      <input type="number" value={paidByUser}  onChange={(e) => {const val = Number(e.target.value);setPaidByUser(val > bill ? paidByUser : val);}}/>
 
       <label>👀{selectedFriend.name}'s expenses </label>
       <input type="number" disabled value={paidByFriend}/>
