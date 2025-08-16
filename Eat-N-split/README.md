@@ -14,7 +14,8 @@ You can:
 
 ---
 **Visualizer:**
----<img src="demo/React App - Google Chrome 2025-08-12 12-10-08.gif" width="500" alt="Demo GIF">---
+
+<img src="demo/React App - Google Chrome 2025-08-12 12-10-08.gif" width="500" alt="Demo GIF">
 
 **🎯 Purpose:**
 This project focuses on **state management** in React and demonstrates **passing data between components using props**.
