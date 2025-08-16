@@ -13,6 +13,8 @@ You can:
 * 📊 **See exactly how much each person owes you, how much you owe them, or if you’re even**
 
 ---
+**Visualizer:**
+<img src="demo/React App - Google Chrome 2025-08-12 12-10-08.mp4" width="500" alt="Demo GIF">
 
 **🎯 Purpose:**
 This project focuses on **state management** in React and demonstrates **passing data between components using props**.
